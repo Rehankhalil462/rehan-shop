@@ -10,7 +10,7 @@ class SignIn extends React.Component{
         this.state={
             email: '',
             password: ''
-        }
+        };
     }
     handleSubmit = async event =>{
         event.preventDefault();
@@ -23,9 +23,18 @@ class SignIn extends React.Component{
             // Error handles here. love it xD;.
             if (error.code === 'auth/wrong-password'){
                 alert(error.message);
+                this.state={
+                    email: '',
+                    password: ''
+                };
+                
             }
             else if (error.code === 'auth/user-not-found'){
                 alert(error.message);
+                this.state={
+                    email: '',
+                    password: ''
+                };
             }
             
         }

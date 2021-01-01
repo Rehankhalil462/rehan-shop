@@ -41,9 +41,21 @@ handleSubmit = async event =>{
        // Error Handles here. I love it . xD;
             if (error.code === 'auth/email-already-in-use'){
                 alert('User with this Email already Exists.');
+                this.setState({
+                    displayName: '',
+                    email: '',
+                    password: '',
+                    confirmPassword: ''
+                 });
             }
             else if (error.code === 'auth/weak-password' ){
-                alert('The Password is too Weak.')
+                alert('The Password is too Weak.');
+                this.setState({
+                    displayName: '',
+                    email: '',
+                    password: '',
+                    confirmPassword: ''
+                 });
             }
     };
 };
