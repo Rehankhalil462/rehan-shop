@@ -24,3 +24,22 @@ export const addItemToCart=(cartItems,cartItemToAdd)=>{
     
 };
 
+
+// remove the items from the cart and if the item that is being removed has quantity of 0 left, then it will remove that item from cart too. xD
+
+export const removeItemFromItem=(cartItems,cartItemToRemove)=>{
+    const existingCartItem= cartItems.find(
+        cartItem=>
+        cartItem.id ===cartItemToRemove.id
+        );
+
+        if (existingCartItem.quantity===1){
+            return cartItems.filter(cartItem =>cartItem.id !==cartItemToRemove.id)
+        }
+        return cartItems.map(cartItem=>
+        cartItem.id===cartItemToRemove.id?
+        {...cartItem, quantity:cartItem.quantity-1}
+                : cartItem
+
+            );
+};
