@@ -1,15 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {BrowserRouter} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {Provider}  from 'react-redux';
-//Provider is a parent component of everything that provides access to the store and other redux properties.
-import store from './redux/store';
-//we now has access to redux in our application
 
-ReactDOM.render(<Provider store={store}><BrowserRouter>  <App /></BrowserRouter></Provider> ,
+import { PersistGate } from 'redux-persist/integration/react';
+
+//we now has access to redux in our application
+import  {persistor,store}  from './redux/store';
+
+
+import reportWebVitals from './reportWebVitals';
+
+//Provider is a parent component of everything that provides access to the store and other redux properties.
+import { Provider } from 'react-redux';
+
+//persistor that is being passed in the persistGate is the persisted version of our app. 
+ReactDOM.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
 
