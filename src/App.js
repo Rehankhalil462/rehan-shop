@@ -2,7 +2,7 @@ import React from 'react'
 import './App.css';
 import {connect } from 'react-redux';
 import Homepage from './pages/homepage/homepage.component';
-import {  Route , Redirect} from 'react-router-dom';
+import {  Route , Redirect,Switch} from 'react-router-dom';
 import ShopPage from './pages/shop/shop.component';
 import Contact from './pages/contact/contact.component';
 import Header from './components/header/header.component';
@@ -47,11 +47,13 @@ render(){
     return (
       <div >
         <Header/>
+      <Switch>
         <Route exact path='/' component={Homepage}/>
-        <Route exact path='/shop' component={ShopPage}/>
+        <Route  path='/shop' component={ShopPage}/>
         <Route exact path='/contact-us' component={Contact}/>
         <Route exact path='/signin' render={()=> this.props.currentUser?(<Redirect to='/'/>):( <SignInandSignUp/>)}/>
         <Route exact path='/checkout' component={CheckoutPage}/>
+        </Switch>
       </div>
     );
   }

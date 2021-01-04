@@ -4,6 +4,8 @@ import { combineReducers } from 'redux';
 
 import userReducer from './user/user.reducer';
 import cartReducer from './cart/cart.reducer';
+import directoryReducer from './directory/directory.reducer';
+import shopReducer from './shop/shop.reducer';
 // importing persistReducer to persist Reducer.
 import {persistReducer} from 'redux-persist';
 // here is the actual local storage object on our window browser. so this is telling to reduxpersist that i want to use local storage by default storage. alternatively you can also import sessionStorage which is a different package link. 
@@ -21,7 +23,9 @@ const persistConfig = {
 
 const rootReducer=combineReducers({
   user: userReducer,
-  cart: cartReducer
+  cart: cartReducer,
+  directory:directoryReducer,
+  shop:shopReducer
 });
 //so it is now modified version of our rootReducer , now with the persistance capabilities. Thanks to this persistReducer function  that we got from redux-persistor. 
 export default  persistReducer(persistConfig,rootReducer); 
