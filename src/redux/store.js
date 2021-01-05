@@ -6,7 +6,7 @@ import rootReducer from './root-reducer';
 import {persistStore} from 'redux-persist';
 
 
-const middleware= [logger];
+const middleware= [];
 
 // if we are in development mode then it will logged the current state , prev state, after state in the console otherwise we dont want it.
 if (process.env.NODE_ENV === 'development'){
