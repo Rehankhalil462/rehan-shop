@@ -39,7 +39,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 // this snapshot reference of signed in user matches with the data of firestore and tells us that if user exits or not by "exist" property.
 const snapShot= await userRef.get();
 
-console.log(snapShot);
+// console.log(snapShot);
 if(!snapShot.exists){
   //if user does not exist in our firestore database then we will get his email and displayname from the documentSnapshot and will create or set that user to our database.
   const {displayName, email}= userAuth;
