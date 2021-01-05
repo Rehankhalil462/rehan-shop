@@ -7,6 +7,12 @@ import {persistStore} from 'redux-persist';
 
 
 const middleware= [logger];
+
+// if we are in development mode then it will logged the current state , prev state, after state in the console otherwise we dont want it.
+if (process.env.NODE_ENV === 'development'){
+    middleware.push(logger);
+}
+
 export const store = createStore(rootReducer, applyMiddleware(...middleware));
 //followin, we are creating a persisted version of our store right!.
 export  const persistor=persistStore(store);
