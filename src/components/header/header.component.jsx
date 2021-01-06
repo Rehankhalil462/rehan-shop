@@ -1,11 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+// import { Link } from 'react-router-dom';
 //connect is a higher order component that lets us modify our component to have access to things related to redux.
 import { connect } from 'react-redux';
+
 // importing selectors .
-import {selectCartHidden} from '../../redux/cart/cart.selectors';
-import {selectCurrentUser} from '../../redux/user/user.selector';
-import {createStructuredSelector} from 'reselect';
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selector';
+import { createStructuredSelector } from 'reselect';
+
+//importing styles from js file. css in JS!
+import {HeaderContainer, LogoContainer, OptionDiv, OptionLink, OptionsContainer} from './header.styles';
 
 
 import { auth } from '../../firebase/firebase.utils';
@@ -20,30 +25,30 @@ import './header.styles.scss';
 
 
 const Header = ({ currentUser, hidden }) => (
-  <div className='header'>
-    <Link className='logo-container' to='/'>
+  <HeaderContainer>
+    <LogoContainer className='logo-container' to='/'>
       <Logo className='logo' />
-    </Link>
-    <div className='options'>
-      <Link className='option' to='/shop'>
+    </LogoContainer>
+    <OptionsContainer>
+      <OptionLink to='/shop'>
         SHOP
-      </Link>
-      <Link className='option' to='/contact-us'>
+      </OptionLink>
+      <OptionLink to='/contact-us'>
         CONTACT
-      </Link>
+      </OptionLink>
       {currentUser ? (
-        <div className='option' onClick={() => auth.signOut()}>
+        <OptionDiv onClick={() => auth.signOut()}>
           SIGN OUT
-        </div>
+        </OptionDiv>
       ) : (
-        <Link className='option' to='/signin'>
-          SIGN IN
-        </Link>
-      )}
+          <OptionLink to='/signin'>
+            SIGN IN
+          </OptionLink>
+        )}
       <CartIcon />
-    </div>
+    </OptionsContainer>
     {hidden ? null : <CartDropdown />}
-  </div>
+  </HeaderContainer>
 );
 //state is the root reducer. we are going to get currentuser from root reducer then user reducer then currentuser value.
 // const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
@@ -51,7 +56,7 @@ const Header = ({ currentUser, hidden }) => (
 //   hidden
 // });
 
-const mapStateToProps=createStructuredSelector({
+const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   hidden: selectCartHidden
 });
