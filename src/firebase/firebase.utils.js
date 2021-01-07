@@ -59,7 +59,40 @@ if(!snapShot.exists){
 }
 // there's  a chance that we might use userRef object for other purposes.
 return userRef;
-
 }
+
+
+// this is for just to add shop data in the firestore. we can also do  it manually but we are doing that in this way to minimize the time.
+
+// export const addCollectionAndDocuments=async (collectionKey,objectsToAdd)=>{
+//   const collectionRef=firestore.collection(collectionKey);
+// console.log('CollectionRef',collectionRef);
+// const batch=firestore.batch();
+// objectsToAdd.forEach(obj => {
+//   const newDocRef=collectionRef.doc();
+//   console.log('newDocRef',newDocRef);
+//   batch.set(newDocRef,obj);
+  
+// });
+// return await batch.commit();
+
+// };
+
+export const convertCollectionsSnapshotToMap= collections=>{
+  const transformedCollection=collections.docs.map(doc=>{
+    const {title,items}=doc.data();
+    return { routeName:encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items
+   }; });
+   console.log(transformedCollection);
+   return transformedCollection.reduce((accumulator,collection)=>{
+     accumulator[collection.title.toLowerCase()]=collection;
+     return accumulator;
+   },{})
+};
+
+
 
 export default firebase;

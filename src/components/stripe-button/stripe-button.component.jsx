@@ -16,7 +16,7 @@ const onToken=token=>{
         name='RK Mart Ltd'
         billingAddress
         shippingAddress
-        image='https://sendeyo.com/up/d/f3eb2117da'
+        image='C:\Users\Qasim\rehan-shop\src\assests\favicon.ico.svg'
         description={`Your Total is $${price}`}
         amount={priceForStripe}
         panelLabel='Pay Now'
