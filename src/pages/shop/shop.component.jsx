@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 // } from '../../firebase/firebase.utils.js';
 
 // import { updateCollections } from '../../redux/shop/shop.actions';
-import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
+import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 // import {createStructuredSelector} from 'reselect';
 // import {selectIsCollectionLoaded} from '../../redux/shop/shop.selectors';
 
@@ -30,8 +30,8 @@ class ShopPage extends React.Component {
 
   componentDidMount() {
 
-const {fetchCollectionsStartAsync}=this.props;
-fetchCollectionsStartAsync();
+const {fetchCollectionsStart}=this.props;
+fetchCollectionsStart();
 
 
 
@@ -86,7 +86,7 @@ fetchCollectionsStartAsync();
 
 
 const mapDispatchToProps=dispatch=>({
-  fetchCollectionsStartAsync:()=>dispatch(fetchCollectionsStartAsync())
+  fetchCollectionsStart:()=>dispatch(fetchCollectionsStart())
 });
 
 // const mapDispatchToProps = dispatch => ({
