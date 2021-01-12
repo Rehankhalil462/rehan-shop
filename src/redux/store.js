@@ -4,7 +4,8 @@ import {applyMiddleware, createStore} from 'redux';
 
 //  import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
-import {fetchCollectionsStart} from './shop/shop.sagas';
+// import {fetchCollectionsStart} from './shop/shop.sagas';
+import rootSaga from './root-sagas';
 
 import rootReducer from './root-reducer';
 // it allows our browser to actually cache our store now depending on certain configuration.
@@ -24,4 +25,5 @@ export const store = createStore(rootReducer, applyMiddleware(...middleware));
 //followin, we are creating a persisted version of our store right!.
 export  const persistor=persistStore(store);
 
-sagaMiddleware.run(fetchCollectionsStart);
+// sagaMiddleware.run(fetchCollectionsStart);
+sagaMiddleware.run(rootSaga);

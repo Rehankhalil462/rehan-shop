@@ -23,13 +23,13 @@ export const auth = firebase.auth();
 export const firestore= firebase.firestore();
 
 // following line is telling us that which provider we will be using to sign in like through google, facebook, twitter etc. here we are using google auth provider.
-const provider = new firebase.auth.GoogleAuthProvider();
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 // following line is telling through which option we can use sign in . like list of accounts.
-provider.setCustomParameters({prompt: 'select_account'}); 
+googleProvider.setCustomParameters({prompt: 'select_account'}); 
 
-// signInWithPopup is a object on auth library. following function is used to popup a specific provider whenever this function is called.
-export const signinWithGoogle = () => auth.signInWithPopup(provider);
+// signInWithPopup is a object on auth library. following function is used to popup a specific googleProvider whenever this function is called.
+export const signinWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 // way to store properties and data of authenticated user in our firestore dabatase 
 export const createUserProfileDocument = async (userAuth, additionalData) => {

@@ -23,25 +23,25 @@ class App extends React.Component {
   componentDidMount() {
     // const { setCurrentUser, collectionArray } = this.props;
     
-    const { setCurrentUser } = this.props;
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
+    // const { setCurrentUser } = this.props;
+    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth);
 
-        //.onSnapshot will give snapShot object which we will use to change the currentUser state to those paramaters (like .exits property) that are retrieved .
-        // .data() allows us to have access to the properties of that snapShot Object. it comes with an object with the properties stored in the database like displayName, createdAt, email etc.
-        userRef.onSnapshot(snapShot => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data()
-          });
-        });
-      }
-      else {
-        setCurrentUser(userAuth);
-        // addCollectionAndDocuments('collections', collectionArray.map(({title,items})=>({title,items})));
-      }
-    });
+    //     //.onSnapshot will give snapShot object which we will use to change the currentUser state to those paramaters (like .exits property) that are retrieved .
+    //     // .data() allows us to have access to the properties of that snapShot Object. it comes with an object with the properties stored in the database like displayName, createdAt, email etc.
+    //     userRef.onSnapshot(snapShot => {
+    //       setCurrentUser({
+    //         id: snapShot.id,
+    //         ...snapShot.data()
+    //       });
+    //     });
+    //   }
+    //   else {
+    //     setCurrentUser(userAuth);
+    //     // addCollectionAndDocuments('collections', collectionArray.map(({title,items})=>({title,items})));
+    //   }
+    // });
 
   }
   componentWillUnmount() {
