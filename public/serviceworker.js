@@ -13,6 +13,7 @@ self.addEventListener('install', (event) => {
                 return cache.addAll(urlsToCache);
             })
     )
+    self.skipWaiting();
 });
 
 // Listen for requests
@@ -24,6 +25,7 @@ self.addEventListener('fetch', (event) => {
                     .catch(() => caches.match('offline.html'))
             })
     )
+
 });
 
 // Activate the SW
@@ -41,4 +43,5 @@ self.addEventListener('activate', (event) => {
         ))
             
     )
+    
 });
