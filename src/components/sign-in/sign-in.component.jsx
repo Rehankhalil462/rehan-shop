@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import './sign-in.styles.scss';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-import {auth, signinWithGoogle} from '../../firebase/firebase.utils';
-import {googleSignInStart} from '../../redux/user/users.actions';
+// import {auth, signinWithGoogle} from '../../firebase/firebase.utils';
+import {googleSignInStart,emailSignInStart} from '../../redux/user/users.actions';
 
 class SignIn extends React.Component{
     constructor(props){
@@ -17,29 +17,32 @@ class SignIn extends React.Component{
     handleSubmit = async event =>{
         event.preventDefault();
         const {email, password} = this.state;
-        try {
-            await auth.signInWithEmailAndPassword(email,password);
-            this.setState({email:'', password:''})
+        const {emailSignInStart}=this.props;
+
+        emailSignInStart(email,password);
+        // try {
+        //     await auth.signInWithEmailAndPassword(email,password);
+        //     this.setState({email:'', password:''})
             
-        } catch (error) {
-            // Error handles here. love it xD;.
-            if (error.code === 'auth/wrong-password'){
-                alert(error.message);
-                this.state={
-                    email: '',
-                    password: ''
-                };
+        // } catch (error) {
+        //     // Error handles here. love it xD;.
+        //     if (error.code === 'auth/wrong-password'){
+        //         alert(error.message);
+        //         this.state={
+        //             email: '',
+        //             password: ''
+        //         };
                 
-            }
-            else if (error.code === 'auth/user-not-found'){
-                alert(error.message);
-                this.state={
-                    email: '',
-                    password: ''
-                };
-            }
+        //     }
+        //     else if (error.code === 'auth/user-not-found'){
+        //         alert(error.message);
+        //         this.state={
+        //             email: '',
+        //             password: ''
+        //         };
+        //     }
             
-        }
+        // }
        };
 
         
@@ -81,7 +84,8 @@ class SignIn extends React.Component{
 
 
 const mapDispatchToProps=dispatch=>({
-    googleSignInStart:()=>dispatch(googleSignInStart())
+    googleSignInStart:()=>dispatch(googleSignInStart()),
+    emailSignInStart:(email,password)=>dispatch(emailSignInStart({email,password}))
 });
 
 export default connect(null,mapDispatchToProps)(SignIn); 

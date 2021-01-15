@@ -12,8 +12,9 @@ import { createStructuredSelector } from 'reselect';
 //importing styles from js file. css in JS!
 import {HeaderContainer, LogoContainer, OptionDiv, OptionLink, OptionsContainer} from './header.styles';
 
+import {signOutStart} from '../../redux/user/users.actions';
 
-import { auth } from '../../firebase/firebase.utils';
+// import { auth } from '../../firebase/firebase.utils';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
@@ -24,7 +25,7 @@ import './header.styles.scss';
 // we are using ternary operator for sign in and sign out. when the currentUser is an object , it acts as true and then first condition will execute which tells the header to change text as SIGN OUT and then if we click that then onClick is called which will in turn signOut the user by calling the auth.signOut() function. and if currentUser is a null then else part of the ternary operator will apply which will set the header option text to SIGN In which is a link that in return take us to the /signIn page. 
 
 
-const Header = ({ currentUser, hidden }) => (
+const Header = ({ currentUser, hidden,signOutStart }) => (
   <HeaderContainer>
     <LogoContainer className='logo-container' to='/'>
       <Logo className='logo' />
@@ -37,7 +38,7 @@ const Header = ({ currentUser, hidden }) => (
         CONTACT
       </OptionLink>
       {currentUser ? (
-        <OptionDiv onClick={() => auth.signOut()}>
+        <OptionDiv onClick={signOutStart}>
           SIGN OUT
         </OptionDiv>
       ) : (
@@ -61,5 +62,8 @@ const mapStateToProps = createStructuredSelector({
   hidden: selectCartHidden
 });
 
+const mapDispatchToProps=dispatch=>({
+  signOutStart:()=>dispatch(signOutStart())
+});
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps,mapDispatchToProps)(Header);

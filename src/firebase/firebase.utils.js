@@ -93,6 +93,15 @@ export const convertCollectionsSnapshotToMap= collections=>{
    },{})
 };
 
+// mimicking to check if user is signed 
+export const getCurrentUser=()=>{
+  return new Promise((resolve,reject)=>{
+    const unsubscribe=auth.onAuthStateChanged(userAuth=>{
+      unsubscribe();
+      resolve(userAuth);
+    },reject);
+  });
+};
 
 
 export default firebase;
