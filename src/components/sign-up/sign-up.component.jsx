@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react';
 import './sign-up.styles.scss';
 import {connect} from 'react-redux';
 import {emailSignUpStart} from '../../redux/user/users.actions';
@@ -8,25 +8,23 @@ import CustomButton from '../custom-button/custom-button.component';
 
 // import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
-class SignUp extends React.Component{
-    constructor(){
-        super();
-        this.state={
-            displayName: '',
-            email: '',
-            password: '',
-            confirmPassword: ''
-        };
-    }
+const SignUp=({emailSignUpStart})=>{
+const [userCredentials,setUserCredentials]=useState({
+    displayName:'',
+    email:'',
+    password:'',
+    confirmPassword:''
+});
+const { displayName, email, password, confirmPassword} = userCredentials;
 
-handleSubmit = async event =>{
+
+const handleSubmit = async event =>{
         event.preventDefault();
-        const { displayName, email, password, confirmPassword} = this.state;
         if (password !== confirmPassword){
             alert("Passwords don't match");
             return;
         }
-        const {emailSignUpStart}=this.props;
+        // const {emailSignUpStart}=this.props;
         emailSignUpStart({email,password,displayName});
     //     try{
     //         // .createUserWithEmailAndPassword is a method on auth library that allows us to create user with the provided email and password.
@@ -66,51 +64,50 @@ handleSubmit = async event =>{
 
 
 // this is used to set the entered data in the form inputs to the state of the class.
-handleChange= event => {
+const handleChange= event => {
     const {name,value}=event.target;
-    this.setState({[name]:value});  
+    setUserCredentials({...userCredentials,[name]:value});  
 };
 
-render(){
-    const {displayName, email, password, confirmPassword}= this.state;
+
+    // const {displayName, email, password, confirmPassword}= this.state;
     return(
         <div className='sign-up'>
             <h2 className='title'> I do not have a Account</h2>
             <span>Sign Up with your Email and Password</span>
-            <form  className='sign-up-form'  onSubmit={this.handleSubmit}>
+            <form  className='sign-up-form'  onSubmit={handleSubmit}>
                 <FormInput 
                 type='text'
                 name='displayName'
                 value={displayName}
-                onChange={this.handleChange}
+                onChange={handleChange}
                 label='Display Name'
                 required />
                 <FormInput
                 type='email'
                 name='email'
                 value={email}
-                onChange={this.handleChange}
+                onChange={handleChange}
                 label='Email'
                 required />
                 <FormInput 
                 type='password'
                 name='password'
                 value={password}
-                onChange={this.handleChange}
+                onChange={handleChange}
                 label='Password'
                 required />
                 <FormInput 
                 type='password'
                 name='confirmPassword'
                 value={confirmPassword}
-                onChange={this.handleChange}
+                onChange={handleChange}
                 label='Confirm Password'
                 required/>
             <CustomButton type='submit'>SIGN UP</CustomButton>
             </form>
          </div>
     );
-}
 };
 
 const mapDispatchToProps=dispatch=>({

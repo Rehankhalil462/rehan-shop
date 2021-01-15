@@ -16,6 +16,7 @@
     "react-scripts": "4.0.1",
     "react-stripe": "^0.1.0",
     "react-stripe-checkout": "^2.6.3",
+    "reactjs-popup": "^2.0.4",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
