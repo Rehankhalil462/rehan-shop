@@ -16,13 +16,15 @@
         height: 100%;
       }
     }
-    .name,
+    .name{
+        width: 23%;
+        @media screen and (max-width: 800px) {
+          width: 22%;
+          }
+    }
     .quantity,
     .price {
-      width: 23%;
-      @media screen and (max-width: 800px) {
-        width: 22%;
-      }
+      width: 23%; 
     }
     .quantity{
       display: flex;
@@ -35,7 +37,6 @@
     }
   
     .quantity {
-      // padding-left: 10px;
       @media screen and (max-width: 800px) {
         padding-left: unset;
       }
@@ -45,5 +46,8 @@
       padding-left: 12px;
       cursor: pointer;
     }
+    @media screen and (max-width: 800px) {
+      font-size: 18px;
+      }
   }
   
