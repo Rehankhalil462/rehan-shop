@@ -2,7 +2,7 @@ import { takeLatest, all, put, call } from 'redux-saga/effects';
 import UserActionTypes from './user.types';
 import { signInFailure, signInSuccess, signOutSuccess, signOutFailure, signUpFailure, signUpSuccess } from './users.actions';
 
-import { auth, createUserProfileDocument, googleProvider, getCurrentUser } from '../../firebase/firebase.utils';
+import { auth, createUserProfileDocument, googleProvider, facebookProvider , getCurrentUser } from '../../firebase/firebase.utils';
 
 export function* getSnapshotFromUserAuth(userAuth, additionalData) {
     try {
@@ -31,6 +31,19 @@ export function* signInWithGoogle() {
 
 };
 
+export function* signinWithFacebook() {
+    try {
+        const { user } = yield auth.signInWithPopup(facebookProvider);
+        yield getSnapshotFromUserAuth(user);
+    } catch (error) {
+        yield put(signInFailure(error));
+        if (error.code === 'auth/account-exists-with-different-credential'){
+            alert('An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.');
+        }
+    }
+};
+
+
 export function* signUp({ payload: { email, password, displayName } }) {
     try {
         const { user } = yield auth.createUserWithEmailAndPassword(email, password);
@@ -50,6 +63,10 @@ export function* signUp({ payload: { email, password, displayName } }) {
         }
         else if (error.code === 'auth/weak-password') {
             alert('The Password is too Weak.');
+        }
+            else if (error.code === 'auth/invalid-email'){
+                alert('The email address is badly formatted.');
+            }
             // this.setState({
             //     displayName: '',
             //     email: '',
@@ -57,8 +74,7 @@ export function* signUp({ payload: { email, password, displayName } }) {
             //     confirmPassword: ''
             //  });
         }
-    }
-};
+    };
 
 export function* signInAfterSignUp({ payload: { user, additionalData } }) {
     yield getSnapshotFromUserAuth(user, additionalData);
@@ -110,6 +126,9 @@ export function* signOut() {
 export function* onGoogleSignInStart() {
     yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
 };
+export function* onFacebookSignInStart(){
+    yield takeLatest(UserActionTypes.FACEBOOK_SIGN_IN_START,signinWithFacebook)
+};
 export function* onEmailSignInStart() {
     yield takeLatest(UserActionTypes.EMAIL_SIGN_IN_START, signInWithEmail)
 };
@@ -132,6 +151,7 @@ export function* onSignUpSuccess() {
 export function* userSagas() {
     yield all([
         call(onGoogleSignInStart),
+        call(onFacebookSignInStart),
         call(onEmailSignInStart),
         call(onCheckUserSession),
         call(onSignOutStart),

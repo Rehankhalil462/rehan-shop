@@ -4,9 +4,9 @@ import './sign-in.styles.scss';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 // import {auth, signinWithGoogle} from '../../firebase/firebase.utils';
-import { googleSignInStart, emailSignInStart } from '../../redux/user/users.actions';
+import { googleSignInStart, emailSignInStart, facebookSignInStart } from '../../redux/user/users.actions';
 
-const SignIn = ({ emailSignInStart, googleSignInStart }) => {
+const SignIn = ({ emailSignInStart, googleSignInStart, facebookSignInStart }) => {
     const [userCredentials, setCredentials] = useState({ email: '', password: '' });
 
     const { email, password } = userCredentials;
@@ -65,9 +65,11 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
                     value={password}
                     handleChange={handleChange}
                     required />
+                <span className='note'>Note: Please Sign In with only that Provider (Google or Facebook) with which you are going to Sign In in the Future!</span>
                 <div className='buttons'>
                     <CustomButton type='submit' >Sign In</CustomButton>
                     <CustomButton type='button' onClick={googleSignInStart} isGoogleSignin >{' '}Sign In with Google{' '}</CustomButton>
+                    <CustomButton type='button' onClick={facebookSignInStart} isGoogleSignin>{' '}Sign In with Facebook{' '}</CustomButton>
                 </div>
             </form>
         </div>
@@ -77,6 +79,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
 
 
 const mapDispatchToProps = dispatch => ({
+    facebookSignInStart: () => dispatch(facebookSignInStart()),
     googleSignInStart: () => dispatch(googleSignInStart()),
     emailSignInStart: (email, password) => dispatch(emailSignInStart({ email, password }))
 });

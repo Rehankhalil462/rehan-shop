@@ -39,10 +39,14 @@
     margin-top: 50px;
   }
   .test-warning{
+    font-family: 'Source Code Pro';
     text-align:center;
     margin-top: 40px;
-    font-size:24px;
+    font-size:18px;
     color:red;
+    @media screen and (max-width:800px) {
+      font-size: 14px;
+    }     
   }
   @media screen and (max-width: 800px) {
     width: 90%;

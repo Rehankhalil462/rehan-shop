@@ -7,8 +7,17 @@
         margin: 10px 0;
     }
     .buttons {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 15px;
+        padding: 15px 0;
+
+      }
+      .note{
+          color:red;
+          font-family: 'Source Code Pro';
+          font-size: 14px;
+
       }
     
 }
