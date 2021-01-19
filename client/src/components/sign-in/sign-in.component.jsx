@@ -49,7 +49,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart, facebookSignInStart }) =>
     return (
         <div className='Sign-In'>
             <h2>I already have an Account.</h2>
-            <span>Sign in with your Email and Password.</span>
+            <span>Sign In with your Email and Password.</span>
             <form onSubmit={handleSubmit}>
                 <FormInput
                     name='email'

@@ -73,8 +73,8 @@ const handleChange= event => {
     // const {displayName, email, password, confirmPassword}= this.state;
     return(
         <div className='sign-up'>
-            <h2 className='title'> I do not have a Account</h2>
-            <span>Sign Up with your Email and Password</span>
+            <h2 className='title'> I do not have an Account.</h2>
+            <span>Sign Up with your Email and Password.</span>
             <form  className='sign-up-form'  onSubmit={handleSubmit}>
                 <FormInput 
                 type='text'
