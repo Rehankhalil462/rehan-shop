@@ -30,6 +30,16 @@
         border: none;
       }
     }
+    &.github-sign-in{
+      background-color: #008B8B;
+      color: #ffff;
+      justify-content: space-between;
+      
+      &:hover{
+        background-color: #3cc0c0;
+        border: none;
+      }
+    }
     &.inverted{
       background-color: white;
       color: black;

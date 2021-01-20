@@ -34,10 +34,23 @@ const googleSignInStyles = css`
     border: none;
   }
 `;
+const githubSignInStyles = css`
+  background-color: #aed6f1;
+  color: white;
+  border:none;
+
+  &:hover {
+    background-color: black;
+    color: white;
+    border: none;
+  }
+`;
 
 const getButtonStyles = props => {
   if (props.isGoogleSignin) {
     return googleSignInStyles;
+  }else if(props.isGitHubSignin){
+    return githubSignInStyles;
   }
 
   return props.inverted ? invertedButtonStyles : buttonStyles;

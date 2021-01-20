@@ -25,6 +25,7 @@ export const firestore = firebase.firestore();
 // following line is telling us that which provider we will be using to sign in like through google, facebook, twitter etc. here we are using google auth provider.
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
 export const facebookProvider = new firebase.auth.FacebookAuthProvider();
+export const githubProvider = new firebase.auth.GithubAuthProvider();
 
 // following line is telling through which option we can use sign in . like list of accounts.
 googleProvider.setCustomParameters({ prompt: 'select_account' });

@@ -2,7 +2,7 @@ import { takeLatest, all, put, call } from 'redux-saga/effects';
 import UserActionTypes from './user.types';
 import { signInFailure, signInSuccess, signOutSuccess, signOutFailure, signUpFailure, signUpSuccess } from './users.actions';
 
-import { auth, createUserProfileDocument, googleProvider, facebookProvider , getCurrentUser } from '../../firebase/firebase.utils';
+import { auth, createUserProfileDocument, googleProvider, facebookProvider , getCurrentUser, githubProvider } from '../../firebase/firebase.utils';
 
 export function* getSnapshotFromUserAuth(userAuth, additionalData) {
     try {
@@ -21,6 +21,11 @@ export function* signInWithGoogle() {
         yield getSnapshotFromUserAuth(user);
     } catch (error) {
         yield put(signInFailure(error));
+    if (error.code === 'auth/account-exists-with-different-credential'){
+        alert('An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.');
+    }
+    else if (error.code === 'auth/popup-closed-by-user'){
+        alert('The popup has been closed by the user before finalizing the operation.');
     }
     //     const userRef = yield call(createUserProfileDocument, user);
     //     const userSnapShot = yield userRef.get();
@@ -29,8 +34,22 @@ export function* signInWithGoogle() {
     //     yield put(signInFailure(error));
     // }
 
+}
 };
 
+export function* signinWithGitHub(){
+    try {
+        const {user} =yield auth.signInWithPopup(githubProvider);
+        yield getSnapshotFromUserAuth(user);
+    } catch (error) {
+        yield put(signInFailure(error));
+        if (error.code === 'auth/account-exists-with-different-credential'){
+            alert('An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.');
+        }else if (error.code === 'auth/popup-closed-by-user'){
+            alert('The popup has been closed by the user before finalizing the operation.');
+        }
+    }
+};
 export function* signinWithFacebook() {
     try {
         const { user } = yield auth.signInWithPopup(facebookProvider);
@@ -39,6 +58,8 @@ export function* signinWithFacebook() {
         yield put(signInFailure(error));
         if (error.code === 'auth/account-exists-with-different-credential'){
             alert('An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.');
+        }else if (error.code === 'auth/popup-closed-by-user'){
+            alert('The popup has been closed by the user before finalizing the operation.');
         }
     }
 };
@@ -129,6 +150,9 @@ export function* onGoogleSignInStart() {
 export function* onFacebookSignInStart(){
     yield takeLatest(UserActionTypes.FACEBOOK_SIGN_IN_START,signinWithFacebook)
 };
+export function* onGitHubSignInStart(){
+    yield takeLatest(UserActionTypes.GITHUB_SIGN_IN_START,signinWithGitHub);
+}
 export function* onEmailSignInStart() {
     yield takeLatest(UserActionTypes.EMAIL_SIGN_IN_START, signInWithEmail)
 };
@@ -152,6 +176,7 @@ export function* userSagas() {
     yield all([
         call(onGoogleSignInStart),
         call(onFacebookSignInStart),
+        call(onGitHubSignInStart),
         call(onEmailSignInStart),
         call(onCheckUserSession),
         call(onSignOutStart),

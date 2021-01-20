@@ -14,6 +14,9 @@ export const googleSignInStart=()=>({
 export const facebookSignInStart=()=>({
   type:UserActionTypes.FACEBOOK_SIGN_IN_START
 });
+export const githubSignInStart=()=>({
+  type:UserActionTypes.GITHUB_SIGN_IN_START
+});
 export const emailSignInStart=emailAndPassword=>({
   type: UserActionTypes.EMAIL_SIGN_IN_START,
   payload:emailAndPassword
