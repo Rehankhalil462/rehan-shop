@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import './sign-in.styles.scss';
-import logo from '../../assests/GitHub.png';
+import githublogo from '../../assests/GitHub.png';
+import facebooklogo from '../../assests/FaceBook.png';
+import googlelogo from '../../assests/Google.png';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 // import {auth, signinWithGoogle} from '../../firebase/firebase.utils';
@@ -69,9 +71,9 @@ const SignIn = ({ emailSignInStart, googleSignInStart, facebookSignInStart,githu
                 <span className='note'>Note: Please Sign In with only that Provider (Google/Facebook/GitHub) with which you are going to Sign In in the Future!</span>
                 <div className='buttons'>
                     <CustomButton type='submit' >Sign In</CustomButton>
-                    <CustomButton type='button' onClick={googleSignInStart} isGoogleSignin >{' '}Sign In with Google{' '}</CustomButton>
-                    <CustomButton type='button' onClick={facebookSignInStart} isGoogleSignin>{' '}Sign In with Facebook{' '}</CustomButton>
-                    <CustomButton type='button' onClick={githubSignInStart} isGitHubSignin>{' '}Sign In with GitHub<img className='logo' src={logo} alt='github_logo'></img>{' '}</CustomButton>
+                    <CustomButton type='button' onClick={googleSignInStart} isGoogleSignin >{' '}Sign In with Google<img className='logo' src={googlelogo} alt='google_logo'/>{' '}</CustomButton>
+                    <CustomButton type='button' onClick={facebookSignInStart} isFacebookSignin>{' '}Sign In with Facebook<img className='logo' src={facebooklogo} alt='facebook_logo'/>{' '}</CustomButton>
+                    <CustomButton type='button' onClick={githubSignInStart} isGitHubSignin>{' '}Sign In with GitHub<img className='logo' src={githublogo} alt='github_logo'/>{' '}</CustomButton>
 
                 </div>
             </form>

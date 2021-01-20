@@ -29,7 +29,7 @@ export const githubProvider = new firebase.auth.GithubAuthProvider();
 
 // following line is telling through which option we can use sign in . like list of accounts.
 googleProvider.setCustomParameters({ prompt: 'select_account' });
-facebookProvider.setCustomParameters({ 'display': 'popup' });
+// facebookProvider.setCustomParameters({ 'display': 'popup' });
 
 // signInWithPopup is a object on auth library. following function is used to popup a specific googleProvider whenever this function is called.
 export const signinWithGoogle = () => auth.signInWithPopup(googleProvider);

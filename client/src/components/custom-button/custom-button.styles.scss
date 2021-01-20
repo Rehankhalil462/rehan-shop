@@ -23,23 +23,37 @@
       border: 1px solid black;
     }
     &.google-sign-in{
-      background-color: #4285f4;
+      background-color: #8b4e8b;
       color: white;
+      justify-content: space-between;
+
       &:hover{
-        background-color: #357ae8;
+        background-color: #a571a5;
         border: none;
       }
     }
     &.github-sign-in{
-      background-color: #008B8B;
+      background-color: #007272;
       color: #ffff;
       justify-content: space-between;
       
       &:hover{
-        background-color: #3cc0c0;
+        background-color: #008b8b;
         border: none;
       }
     }
+    &.facebook-sign-in{
+      background-color: #357ae8;
+
+      color: white;
+      justify-content: space-between;
+
+      &:hover{
+        background-color: #4285f4;
+        border: none;
+      }
+    }
+    
     &.inverted{
       background-color: white;
       color: black;
