@@ -39,9 +39,6 @@ export function* signInWithGoogle() {
 
 export function* signinWithGitHub(){
     try {
-        githubProvider.setCustomParameters({
-            'allow_signup': 'false'
-          });
         const {user} =yield auth.signInWithPopup(githubProvider);
         yield getSnapshotFromUserAuth(user);
     } catch (error) {
