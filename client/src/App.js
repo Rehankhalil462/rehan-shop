@@ -1,13 +1,21 @@
-import React , { useEffect } from 'react';
+import React , { useEffect,lazy,Suspense } from 'react';
 // import './App.css';
 import {GlobalStyle} from './global.styles';
 import { connect } from 'react-redux';
-import Homepage from './pages/homepage/homepage.component';
+import Spinner from './components/spinner/spinner.component';
+import ErrorBoundary from './components/error-boundary/error-boundary.component';
+
+// import Homepage from './pages/homepage/homepage.component';
+// import CheckoutPage from './pages/checkout/checkout.component';
+// import ShopPage from './pages/shop/shop.component';
+// import SignInandSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
+// import Contact from './pages/contact/contact.component';
+
+
+
+
 import { Route, Redirect, Switch } from 'react-router-dom';
-import ShopPage from './pages/shop/shop.component';
-import Contact from './pages/contact/contact.component';
 import Header from './components/header/header.component';
-import SignInandSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 // import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils';
 
 // import { auth, createUserProfileDocument } from './firebase/firebase.utils';
@@ -15,8 +23,17 @@ import SignInandSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.com
 import {checkUserSession} from './redux/user/users.actions';
 import { selectCurrentUser } from './redux/user/user.selector';
 import { createStructuredSelector } from 'reselect';
-import CheckoutPage from './pages/checkout/checkout.component';
 // import {selectCollectionsForPreview} from './redux/shop/shop.selectors';
+
+//!!!!!! Converting our imports to Lazy and Suspense for optimization/performance of app!!!!.
+const Homepage=lazy(()=> import('./pages/homepage/homepage.component'));
+const ShopPage=lazy(()=> import('./pages/shop/shop.component'));
+const SignInandSignUp=lazy(()=> import('./pages/sign-in-and-sign-up/sign-in-and-sign-up.component'));
+const CheckoutPage=lazy(()=> import('./pages/checkout/checkout.component'));
+const Contact=lazy(()=>import('./pages/contact/contact.component'));
+
+
+
 
 const App =({checkUserSession,currentUser})=> {
  
@@ -31,12 +48,16 @@ checkUserSession();
       <div >
         <GlobalStyle/>
         <Header />
-        <Switch>
+        <Switch >
+          <ErrorBoundary>
+          <Suspense fallback={<Spinner/>}>
           <Route exact path='/' component={Homepage} />
           <Route path='/shop' component={ShopPage} />
           <Route exact path='/contact-us' component={Contact} />
           <Route exact path='/signin' render={() => currentUser ? (<Redirect to='/' />) : (<SignInandSignUp />)} />
           <Route exact path='/checkout' component={CheckoutPage} />
+          </Suspense>
+          </ErrorBoundary>
         </Switch>
       </div>
     );
